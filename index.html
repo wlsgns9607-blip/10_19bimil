@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>신선지도 키오스크</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hdr">
+  <div class="logo">E-<br>MART<small>Farmer's<br>Pick</small></div>
+  <div class="store"><b data-t="store">역삼점</b><span class="on">● KIOSK #01 ACTIVE</span><br><span class="loc">📍 <span data-t="gateA">B1F 청과/신선 게이트 A 입구</span></span></div>
+  <div class="hsearch" id="hsearch" role="button">🔍 <span data-t="ph">신선과일·채소 검색</span> <span style="margin-left:auto">🎤</span></div>
+  <nav class="tabs">
+    <button class="tab on" data-tab="map" data-t="tab1">신선지도</button>
+    <button class="tab" data-tab="picks" data-t="tab2">오늘의 파머스픽</button>
+    <button class="tab" data-tab="zones" data-t="tab3">코너/매대안내</button>
+  </nav>
+  <button class="pill" id="bigBtn">🧍 <span data-t="big">큰글씨/안내</span></button>
+  <div class="avatar">👤</div>
+</header>
+
+<main>
+  <section class="card">
+    <div class="row">
+      <div class="locbar"><span class="dot"></span><span data-t="curloc" style="white-space:nowrap">현재 위치</span> <span style="color:#ccc">|</span> <b data-t="curpos">🏬 B1F 신선매장 채소 코너 입구 (청과 게이트 A) 실시간 감지</b></div>
+      <div class="searchbox">
+        <div class="sb">🔍<input id="q" autocomplete="off" placeholder="검색어를 입력하세요" enterkeyhint="search"><button class="x" id="clr" aria-label="clear">⊗</button><button class="vbtn" id="mic">🎤 <span data-t="voice">음성 검색</span></button></div>
+        <div class="sug" id="sug"></div>
+      </div>
+    </div>
+    <div class="chips"><span data-t="pop">인기 검색</span><span id="chips" class="row" style="gap:10px"></span></div>
+  </section>
+
+  <div class="cols">
+    <section class="card mapcard">
+      <div class="maphd">
+        <div class="mtitle"><span class="dot"></span><span data-t="mapTitle">신선식품 실시간 매장 맵</span></div>
+        <button class="short" id="short">🚶 <span data-t="short">최단 동선</span></button>
+        <div class="floor"><button class="on" data-fl="B1">B1F 신선식품</button><button data-fl="1F">1F 가공식품</button></div>
+        <div class="mctl"><button class="ib" id="rot" title="rotate">⟳</button>
+        <button class="ib" id="zi" title="zoom in">＋</button>
+        <button class="ib" id="zo" title="zoom out">－</button></div>
+      </div>
+      <div class="mapwrap" id="mapwrap"><svg id="map" viewBox="0 0 640 420" preserveAspectRatio="xMidYMid meet"></svg></div>
+      <div class="guide">
+        <div class="turn" id="turn">↱</div>
+        <div class="gt"><div><span class="badge" id="stepNo">1단계</span><b id="stepT"></b></div><p id="stepD"></p></div>
+        <button class="gbtn" id="restart">↻ <span data-t="restart">처음부터</span></button>
+        <button class="gbtn g" id="gtag">✓ #<span id="gtagN"></span><i id="gtagZ"></i></button>
+      </div>
+    </section>
+
+    <section class="card detail">
+      <div class="dhd"><div><span class="zt" id="dz"></span><span class="zs" data-t="showcase">냉장 오픈쇼케이스 2단</span></div><span class="cold">🌡 <span data-t="cold">신선 냉장 4°C 보관</span></span></div>
+      <div class="prod">
+        <div class="pimg"><span class="tg" data-t="today">당일수확</span><span id="pemoji">🌿</span><span class="w" id="pw"></span></div>
+        <div style="flex:1;min-width:0">
+          <div class="brand">🌱 E-MART Farmer's Pick</div>
+          <div class="pname" id="pname"></div>
+          <div class="spec" id="pspec"></div>
+          <div class="price"><span class="d" id="pd"></span><span class="p" id="pp"></span>원<span class="o" id="po"></span></div>
+          <div class="stock" id="stk">📦 <span data-t="stock">실시간 재고</span>: <b id="ps"></b> <span data-t="left">남음</span> <small id="upd"></small></div>
+        </div>
+      </div>
+      <div class="farm">
+        <div class="fh"><div class="fav">🚜</div><div><b id="farm"></b><small id="farmsub"></small></div><div class="grade" id="grade">A등급<br>산지인증</div></div>
+        <div class="quote" id="quote"></div>
+        <div class="kv"><div><span data-t="fresh">신선도/향기 지수</span><span><b id="fr"></b> <span class="star" id="stars"></span></span></div><div><span data-t="inAt">입고 일시</span><b id="inat"></b></div></div>
+        <div class="tags" id="ptags"></div>
+      </div>
+      <div class="send">
+        <div class="sendtop"><div class="qr" id="qr"></div><div><h4>📱 <span data-t="sendT">내 폰으로 위치 & 레시피 전송</span></h4><p data-t="sendD">카메라로 QR 스캔 시 고객님의 모바일 앱 및 스마트카트 화면에 실시간 동선이 연동됩니다.</p><div class="sbtns"><button id="kakao" data-t="kakao">💬 카카오톡 전송</button><button id="sms" data-t="sms">💬 문자 전송</button></div></div></div>
+        <button class="go" id="go"></button>
+      </div>
+      <div class="voice"><span>🔊 <span data-t="vmode">시각/고령자 음성 안내 모드</span></span><button class="tog" id="vtog"><span data-t="vOff">음성 꺼짐</span></button></div>
+    </section>
+  </div>
+</main>
+
+<footer class="ftr">
+  <div class="fsel">✓ #<span id="fN"></span><i id="fZ"></i></div>
+  <button class="fmob" id="mobBtn">📱 <span data-t="mob">모바일로 지도 전송</span></button>
+  <div class="lang" id="lang"><button class="on" data-l="ko">한국어</button><button data-l="en">ENG</button><button data-l="zh">中文</button><button data-l="ja">日本語</button></div>
+  <button class="call" id="callBtn">🎧 <span data-t="call">직원 호출</span></button>
+</footer>
+
+<div class="toast" id="toast"></div>
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+
+<script src="app.js"></script>
+</body>
+</html>
